@@ -8,9 +8,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - "3306:3306"
+      - 3306:3306
     volumes:
-      - db:/var/lib/mysql
+      - /home/mysqldata:/var/lib/mysql
 
   spring_app:
     image: achatproject
