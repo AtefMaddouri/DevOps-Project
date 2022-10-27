@@ -6,7 +6,7 @@ pipeline {
 
     stages {
 
-       stage ('GIT') {
+     /*  stage ('GIT') {
             steps {
                echo "Getting Project from Git"; 
                 git branch: "main", 
@@ -15,7 +15,7 @@ pipeline {
             }
         }
 
-
+*/
         stage("build package") {
             steps {
               
@@ -26,13 +26,14 @@ pipeline {
             }
         }
        
-       /* 
+       
         stage("Sonar") {
             steps {
-                sh"mvn verify sonar:sonar Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.login=admin -Dsonar.password=Atef123*"
+               /* sh"mvn verify sonar:sonar Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.login=admin -Dsonar.password=Atef123*" */
+                  sh"mvn verify sonar:sonar -Dsonar.login=admin -Dsonar.password=Atef123*"
             }
         }
-        */
+        
         /*
         stage("DEPLOY") {
             steps {
