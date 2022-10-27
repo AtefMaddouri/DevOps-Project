@@ -8,15 +8,14 @@ pipeline {
       
         stage("run image on server") {
             steps {
-                sh "sudo docker stop achatproject/achatproject || true"
-                sh "sudo docker stop mysqldb || true"
-                sh "sudo docker rm achatproject/achatproject || true"
-                sh "docker rm mysqldb || true"
-                sh " docker --version"
-                sh " docker run hello-world"
-              //  sh "docker run --name mysqldb –-network mynetwork -e MYSQL_ROOT_PASSWORD=root –v /home/mysql/data:/var/lib/mysql -d mysql:8"
-                sh "docker run –p 9090:9090 –-network mynetwork –d achatproject/achatproject"
-              //  sh "docker-compose up -d"
+                sh " docker stop achatproject/achatproject || true"
+                sh " docker stop mysqldb || true"
+                sh " docker rm achatproject/achatproject || true"
+                sh " docker rm mysqldb || true"
+               // sh "docker run --name mysqldb –-network mynetwork -e MYSQL_ROOT_PASSWORD=root –v /home/mysql/data:/var/lib/mysql -d mysql:8"
+               // sh "docker run –p 9090:9090 –-network mynetwork –d achatproject/achatproject"
+               sh "docker-compose down" 
+               sh "docker-compose up -d"
             }
         }
     
