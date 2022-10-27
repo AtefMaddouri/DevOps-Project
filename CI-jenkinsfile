@@ -1,0 +1,65 @@
+pipeline {
+
+      agent { label 'maven' } 
+    /* agent any */
+
+
+    stages {
+
+       stage ('GIT') {
+            steps {
+               echo "Getting Project from Git"; 
+                git branch: "main", 
+                    url: "https://github.com/AtefMaddouri/DevOps-Project.git",
+                    credentialsId: "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"; 
+            }
+        }
+
+
+        stage("build package") {
+            steps {
+              
+                sh " mvn -version "
+            
+                sh "mvn clean package -DskipTests"
+                // sh "mvn clean package -DskipTests" pour une machine linux
+            }
+        }
+       
+       /* 
+        stage("Sonar") {
+            steps {
+                sh"mvn verify sonar:sonar Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.login=admin -Dsonar.password=Atef123*"
+            }
+        }
+        */
+        /*
+        stage("DEPLOY") {
+            steps {
+                sh "mvn deploy -DskipTests"
+            }
+        }
+      */
+      
+    /*   stage("build image") {
+            steps {
+                sh "docker build -t achatproject/achatproject . "
+            }
+        }*/
+        
+       /* stage("deploy image to dockerhub") {
+            steps {
+                sh "docker push achatproject/achatproject:latest "
+            }
+        }*/
+      
+    
+    }
+  
+    post {
+        always {
+            cleanWs()
+        }
+    }
+    
+}
