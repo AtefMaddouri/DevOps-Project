@@ -18,7 +18,7 @@ pipeline {
         }
         stage("run image on server using docker-compose") {
             steps {
-               sh "docker-compose down" 
+              // sh "docker-compose down" 
                sh "docker-compose up -d"
             }
         }
