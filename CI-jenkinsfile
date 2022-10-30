@@ -16,39 +16,43 @@ pipeline {
         }
 
 */
-        stage("build package") {
+        stage("unit testing") {
             steps {
-              
-                sh " mvn -version "
-            
-                sh "mvn clean package -DskipTests"
-                // sh "mvn clean package -DskipTests" pour une machine linux
+                 // lancer les tests avec le profile test
+
+                sh "mvn clean test -Ptest"
             }
         }
-       
-       
-        stage("Sonar") {
+             
+        stage("Sonar testing") {
             steps {
                /* sh"mvn verify sonar:sonar Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.login=admin -Dsonar.password=Atef123*" */
                   sh"mvn verify sonar:sonar -Dsonar.login=admin -Dsonar.password=Atef123*"
             }
         }
-        
-        /*
-        stage("DEPLOY") {
+
+        stage("build package") {
             steps {
-                sh "mvn deploy -DskipTests"
+                sh "mvn clean package -Pprod"
+                // sh "mvn clean package -DskipTests" pour une machine linux
             }
         }
-      */
       
     /*   stage("build image") {
             steps {
                 sh "docker build -t achatproject/achatproject . "
             }
         }*/
+
+        /*
+        stage("deploy artifact to Nexus") {
+            steps {
+                sh "mvn deploy -Pprod"
+            }
+        }
+      */
         
-       /* stage("deploy image to dockerhub") {
+       /* stage("deploy image to Nexus") {
             steps {
                 sh "docker push achatproject/achatproject:latest "
             }

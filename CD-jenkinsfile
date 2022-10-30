@@ -16,12 +16,14 @@ pipeline {
                // sh "docker run –p 9090:9090 –-network mynetwork –d achatproject/achatproject"
             }
         }
-        stage("run image on server using docker-compose") {
+
+       /* stage("run image on server using docker-compose") {
             steps {
               // sh "docker-compose down" 
                sh "docker-compose up -d"
             }
         }
+      */
     
     }
   
