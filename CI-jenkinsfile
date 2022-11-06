@@ -11,7 +11,7 @@ pipeline {
                echo "Getting Project from Git"; 
                 git branch: "main", 
                     url: "https://github.com/AtefMaddouri/DevOps-Project.git",
-                    credentialsId: "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"; 
+                    credentialsId: "git-jenkins-credentials"; 
             }
         }
 
