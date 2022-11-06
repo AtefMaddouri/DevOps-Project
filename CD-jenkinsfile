@@ -5,19 +5,30 @@ pipeline {
 
 
     stages {
-      
-        stage("run image on server") {
+
+        stage("Tooling verification") {
+            steps {
+                sh " docker -version"
+            }
+        }
+
+        stage("Prune Docker images") {
             steps {
                 sh " docker stop achatproject/achatproject || true"
                 sh " docker stop mysqldb || true"
                 sh " docker rm achatproject/achatproject || true"
                 sh " docker rm mysqldb || true"
+            }
+        }
+      
+        stage("Start container") {
+            steps {
                // sh "docker run --name mysqldb –-network mynetwork -e MYSQL_ROOT_PASSWORD=root –v /home/mysql/data:/var/lib/mysql -d mysql:8"
                // sh "docker run –p 9090:9090 –-network mynetwork –d achatproject/achatproject"
             }
         }
 
-       /* stage("run image on server using docker-compose") {
+       /* stage("Start container using docker-compose") {
             steps {
               // sh "docker-compose down" 
                sh "docker-compose up -d"
