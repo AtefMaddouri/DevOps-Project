@@ -1,11 +1,10 @@
 package com.esprit.examen.services;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.esprit.examen.entities.DetailFournisseur;
 import com.esprit.examen.entities.Fournisseur;
@@ -15,33 +14,26 @@ import com.esprit.examen.repositories.FournisseurRepository;
 import com.esprit.examen.repositories.ProduitRepository;
 import com.esprit.examen.repositories.SecteurActiviteRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class FournisseurServiceImpl implements IFournisseurService {
 
-	@Autowired
-	FournisseurRepository fournisseurRepository;
-	@Autowired
-	DetailFournisseurRepository detailFournisseurRepository;
-	@Autowired
-	ProduitRepository produitRepository;
-	@Autowired
-	SecteurActiviteRepository secteurActiviteRepository;
+	private final FournisseurRepository fournisseurRepository;
+	private final DetailFournisseurRepository detailFournisseurRepository;
+	private final SecteurActiviteRepository secteurActiviteRepository;
 
 	@Override
 	public List<Fournisseur> retrieveAllFournisseurs() {
-		List<Fournisseur> fournisseurs = (List<Fournisseur>) fournisseurRepository.findAll();
-		for (Fournisseur fournisseur : fournisseurs) {
-			log.info(" fournisseur : " + fournisseur);
-		}
-		return fournisseurs;
+		return fournisseurRepository.findAll();
 	}
 
 
 	public Fournisseur addFournisseur(Fournisseur f /*Master*/) {
 		DetailFournisseur df= new DetailFournisseur();//Slave
-		df.setDateDebutCollaboration(new Date()); //util
+		df.setDateDebutCollaboration(LocalDate.now()); //util
 		//On affecte le "Slave" au "Master"
 		f.setDetailFournisseur(df);	
 		fournisseurRepository.save(f);
@@ -64,24 +56,19 @@ public class FournisseurServiceImpl implements IFournisseurService {
 	@Override
 	public void deleteFournisseur(Long fournisseurId) {
 		fournisseurRepository.deleteById(fournisseurId);
-
 	}
 
 	@Override
 	public Fournisseur retrieveFournisseur(Long fournisseurId) {
-
-		Fournisseur fournisseur = fournisseurRepository.findById(fournisseurId).orElse(null);
-		return fournisseur;
+		return fournisseurRepository.findById(fournisseurId).orElse(null);
 	}
 
+	@Transactional
 	@Override
 	public void assignSecteurActiviteToFournisseur(Long idSecteurActivite, Long idFournisseur) {
 		Fournisseur fournisseur = fournisseurRepository.findById(idFournisseur).orElse(null);
 		SecteurActivite secteurActivite = secteurActiviteRepository.findById(idSecteurActivite).orElse(null);
         fournisseur.getSecteurActivites().add(secteurActivite);
-        fournisseurRepository.save(fournisseur);
-		
-		
 	}
 
 	

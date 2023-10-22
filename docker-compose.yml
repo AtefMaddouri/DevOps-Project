@@ -13,7 +13,7 @@ services:
       - /home/mysqldata:/var/lib/mysql
 
   spring_app:
-    image: achatproject/achatproject
+    image: 192.168.1.120:8085/achatproject
     container_name: achatproject
     restart: on-failure
     ports:

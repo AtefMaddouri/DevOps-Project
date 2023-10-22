@@ -14,16 +14,17 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
+//@ExtendWith(MockitoExtension.class)
 public class StockServiceImplMockTest {
 
-    @Mock
+//    @Spy
     StockRepository stockRepository;
 
     @InjectMocks
     StockServiceImpl stockService;
 
     @Test
-    public void testRetrieveStockByID() {
+    void testRetrieveStockByID() {
 
         //Stock stock = new Stock("stock test",10,100);
         Stock stock = new Stock(1,"stock test",10,100);
