@@ -4,7 +4,7 @@ package com.esprit.examen.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import com.esprit.examen.entities.Stock;
@@ -15,45 +15,33 @@ import io.swagger.annotations.Api;
 @RestController
 @Api(tags = "Gestion des stocks")
 @RequestMapping("/stock")
-@CrossOrigin("*")
+@RequiredArgsConstructor
 public class StockRestController {
 
-	@Autowired
-	IStockService stockService;
+	private final IStockService stockService;
 
-	// http://localhost:8089/SpringMVC/stock/retrieve-all-stocks
 	@GetMapping("/retrieve-all-stocks")
-	@ResponseBody
 	public List<Stock> getStocks() {
-		List<Stock> list = stockService.retrieveAllStocks();
-		return list;
+		return stockService.retrieveAllStocks();
 	}
 
-	// http://localhost:8089/SpringMVC/stock/retrieve-stock/8
-	@GetMapping("/retrieve-stock/{stock-id}")
-	@ResponseBody
+	@GetMapping("/{stock-id}")
 	public Stock retrieveStock(@PathVariable("stock-id") Long stockId) {
 		return stockService.retrieveStock(stockId);
 	}
 
-	// http://localhost:8089/SpringMVC/stock/add-stock
-	@PostMapping("/add-stock")
-	@ResponseBody
+	@PostMapping
 	public Stock addStock(@RequestBody Stock s) {
 		Stock stock = stockService.addStock(s);
 		return stock;
 	}
 
-	// http://localhost:8089/SpringMVC/stock/remove-stock/{stock-id}
-	@DeleteMapping("/remove-stock/{stock-id}")
-	@ResponseBody
+	@DeleteMapping("/{stock-id}")
 	public void removeStock(@PathVariable("stock-id") Long stockId) {
 		stockService.deleteStock(stockId);
 	}
 
-	// http://localhost:8089/SpringMVC/stock/modify-stock
-	@PutMapping("/modify-stock")
-	@ResponseBody
+	@PutMapping
 	public Stock modifyStock(@RequestBody Stock stock) {
 		return stockService.updateStock(stock);
 	}

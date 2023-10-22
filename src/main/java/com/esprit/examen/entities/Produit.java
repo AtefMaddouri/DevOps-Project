@@ -1,7 +1,7 @@
 package com.esprit.examen.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,10 +32,8 @@ public class Produit implements Serializable {
 	private String codeProduit;
 	private String libelleProduit;
 	private float prix;
-	@Temporal(TemporalType.DATE)
-	private Date dateCreation;
-	@Temporal(TemporalType.DATE)
-	private Date dateDerniereModification;
+	private LocalDate dateCreation;
+	private LocalDate dateDerniereModification;
 	@ManyToOne
 	@JsonIgnore
 	private Stock stock;

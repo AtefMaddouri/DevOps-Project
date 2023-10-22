@@ -1,4 +1,4 @@
-package com.esprit.examen;
+package com.esprit.examen.config;
 
 import java.util.Arrays;
 import java.util.Collections;

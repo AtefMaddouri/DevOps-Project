@@ -7,11 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 import com.esprit.examen.entities.Facture;
 import com.esprit.examen.entities.Fournisseur;
 
-@Repository
+
 public interface FactureRepository extends JpaRepository<Facture, Long> {
 
 	
