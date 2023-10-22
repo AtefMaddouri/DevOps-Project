@@ -18,6 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 //@ExtendWith(MockitoExtension.class)
 public class StockServiceImplMockTest {
 
+
+
     @Spy // ou bien @Mock
     StockRepository stockRepository;
 
