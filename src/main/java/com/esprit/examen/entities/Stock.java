@@ -1,6 +1,7 @@
 package com.esprit.examen.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +26,8 @@ public class Stock implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idStock;
 	private String libelleStock;
+	private LocalDate createdAt;
+	private LocalDate updatedAt;
 	private Integer qte;
 	private Integer qteMin;
 	@OneToMany(mappedBy = "stock")

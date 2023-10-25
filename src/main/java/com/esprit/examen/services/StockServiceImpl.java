@@ -1,8 +1,11 @@
 package com.esprit.examen.services;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+
+import com.esprit.examen.repositories.CategorieProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.esprit.examen.entities.Stock;
@@ -16,6 +19,8 @@ public class StockServiceImpl implements IStockService {
 	@Autowired
 	StockRepository stockRepository;
 
+	@Autowired
+	CategorieProduitRepository categorieProduitRepository;
 
 	@Override
 	public List<Stock> retrieveAllStocks() {
@@ -35,6 +40,8 @@ public class StockServiceImpl implements IStockService {
 	public Stock addStock(Stock s) {
 		// récuperer la date à l'instant t1
 		log.info("In method addStock");
+		s.setCreatedAt(LocalDate.now());
+		s.setQte(0);
 		return stockRepository.save(s);
 		
 	}

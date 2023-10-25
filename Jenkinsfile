@@ -43,19 +43,21 @@ pipeline {
             }
         } */
 
+       stage('Unit Testing ') {
+                   steps {
+                       sh 'mvn clean test -Ptest'
+                   }
+               }
+
        stage('SRC analysis Testing') {
             steps {
-             // sh 'mvn verify sonar:sonar -Dsonar.login=${SONAR_USERNAME} -Dsonar.password=${SONAR_PASSWORD}'
-            //  sh 'mvn verify sonar:sonar -Dsonar.login=${SONAR_TOKEN}'
-                sh 'mvn verify sonar:sonar -Dsonar.host.url=${SONARCLOUD_HOST} -Dsonar.organization=${SONARCLOUD_ORGANIZATION} -Dsonar.login=${SONARCLOUD_TOKEN}'
+//               sh 'mvn verify sonar:sonar -Dsonar.login=${SONAR_USERNAME} -Dsonar.password=${SONAR_PASSWORD}'
+//               sh 'mvn verify sonar:sonar -Dsonar.token=${SONAR_TOKEN}'
+              sh 'mvn verify sonar:sonar -Dsonar.host.url=${SONARCLOUD_HOST} -Dsonar.organization=${SONARCLOUD_ORGANIZATION} -Dsonar.token=${SONARCLOUD_TOKEN}'
             }
         }
 
-       stage('Unit Testing ') {
-            steps {
-                sh 'mvn clean test -Ptest'
-            }
-        }
+
 
         stage("build package") {
             steps {
